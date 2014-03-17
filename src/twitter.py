@@ -8,10 +8,10 @@ import codecs
 import os
 from twython import Twython, TwythonError
 
-APP_KEY = 'NYMv3BWY4MXjuG3pSKaY3w'
-APP_SECRET = 'IjQfkJndkIf7adcrrPsuhSpMkp3E0bPv8CHTXW0Lg'
-OAUTH_TOKEN = '262471257-tGXsQqGI9zhgbrI5cmIsrfSeZ9jbS3mqyQY5Ftsj'
-OAUTH_TOKEN_SECRET = 'PnZe42OGjF951ejJCHvhjnAFp9x2eabFuF2Lio1CLKE'
+APP_KEY = ''#put yours
+APP_SECRET = ''#put yours
+OAUTH_TOKEN = ''#put yours
+OAUTH_TOKEN_SECRET = ''#put yours
 
 api = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
