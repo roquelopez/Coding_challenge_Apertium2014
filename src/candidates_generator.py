@@ -5,64 +5,45 @@ Created on 17/03/2014
 @author: roque
 '''
 import sys
-import re
+import codecs
 
-def create_candidates(word):
-    ''' Create the possible candidates for a word with repeated letters'''
-    if re.match('\W', word):
-        return [word]
-    
-    word = word.lower()
-    candidates = list()
-    candidates.append("")
-    size = len(word)
-    i = 0
-    
-    while i < size:
-        repetitions = 1
-        while i < size - 1 and word[i] == word[i + 1]:
-            i += 1
-            repetitions += 1
-            
-        candidates = add_letter(candidates, word[i])
-        min_repetitions = min(2, repetitions)
-        
-        if min_repetitions > 1:
-            candidates = add_letter(candidates, word[i], True)
+dictionary_words = dict()
 
-        i += 1
-    
-    return candidates
-       
-def add_letter(candidate_list, letter, duplicate=False):
-    ''' Add the next letter to  the candidates '''
-    tmp_list = list()
-    for candidate in candidate_list:
-        tmp_list.append(candidate + letter)
-        if duplicate:
-            tmp_list.append(candidate)
+def load_dictionary():
+    ''' Load the word set into a dictionary '''
+    data_file = codecs.open("../resource/english_words.txt", 'r', 'utf-8')
+    while True:
+        line = data_file.readline()
+        if not line: break
+        word = line.strip().split(' ')[2]
+        dictionary_words[word] = None
+    data_file.close()
 
-    return tmp_list
 
-def output_format(original_word, candidades):
-    ''' Return the output format string ''' 
-    return  "^" + original_word + "/" + "/".join(candidades) + "$"
+def correct(word, candidates):
+    ''' Verify and return the candidate that is in the dictionary, otherwise return the original word '''
+    for candidate in candidates:
+        if candidate in dictionary_words:
+            return candidate
+    return word
+
+def output_format(original_word, correct_word):
+    ''' Return the output format string '''
+    return "^%s/%s$" % (original_word, correct_word)
 
 def main():
     ''' The main function '''
+    load_dictionary()
+    correct_words = list()
     for line in sys.stdin.readlines():
-        for word in re.split('\s+', line):
-            original_word = word.strip()
-            if original_word != "":
-                data = re.match('(\w+)(\W+)', original_word)
-                if data:
-                    candidates = create_candidates(data.group(1))
-                    print("%s" % output_format(data.group(1), candidates))  
-                    print("%s" % output_format(data.group(2), [data.group(2)]))  
-                else:
-                    candidates = create_candidates(original_word)
-                    print("%s" % output_format(original_word, candidates))   
-
+        tmp_list = line.replace('$\n', '').split('/')
+        original_word = tmp_list[0][1:]
+        candidates = tmp_list[1:]
+        correct_word = correct(original_word, candidates)
+        correct_words.append(correct_word)
+        print(output_format(original_word, correct_word))   
+    
+    print(" ".join(correct_words))    
+    
 if __name__ == '__main__':
     main()
-
