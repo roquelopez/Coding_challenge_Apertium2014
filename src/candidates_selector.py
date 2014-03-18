@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 '''
 Created on 17/03/2014
 
 @author: roque
 '''
+import sys
 import codecs
-from candidates_generator import create_candidates
 
 dictionary_words = dict()
 
@@ -33,10 +34,16 @@ def output_format(original_word, correct_word):
 def main():
     ''' The main function '''
     load_dictionary()
-    original_word = "Orrriginnnal"
-    candidates = create_candidates(original_word)
-    correct_word = correct(original_word, candidates)
-    print(output_format(original_word, correct_word))   
-           
+    correct_words = list()
+    for line in sys.stdin.readlines():
+        tmp_list = line.replace('$\n', '').split('/')
+        original_word = tmp_list[0][1:]
+        candidates = tmp_list[1:]
+        correct_word = correct(original_word, candidates)
+        correct_words.append(correct_word)
+        print(output_format(original_word, correct_word))   
+    
+    print(" ".join(correct_words))    
+    
 if __name__ == '__main__':
     main()
