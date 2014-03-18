@@ -47,7 +47,7 @@ The program (``src/candidates_generator.py`` module) produces candidates for str
 with repeated letters (>=3) and reduce them to 1/2 letters.
 
 #### Usage:
-echo 'helllooo worrrddd!!!' | python candidates_generator.py 
+``echo 'helllooo worrrddd!!!' | python candidates_generator.py``
 
 #### Output:
 
@@ -68,7 +68,7 @@ echo 'helllooo worrrddd!!!' | python candidates_generator.py
 With all the candidates the Program 2 (``src/candidates_selector.py`` module) selects one candidate using a morphological dictionary. Example:
 
 #### Usage:
-echo 'helllooo worrrddd!!!' | python candidates_generator.py | python candidates_selector.py 
+``echo 'helllooo worrrddd!!!' | python candidates_generator.py | python candidates_selector.py``
 
 #### Output:
 - ^helllooo/hello$
