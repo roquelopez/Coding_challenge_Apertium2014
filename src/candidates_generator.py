@@ -1,13 +1,15 @@
+# -*- coding: utf-8 -*-
 '''
 Created on 17/03/2014
 
 @author: roque
 '''
+import sys
 import re
 
 def create_candidates(word):
     ''' Create the possible candidates for a word with repeated letters'''
-    if re.match('\w', word) is None:
+    if re.match('\W', word):
         return [word]
     
     word = word.lower()
@@ -43,15 +45,24 @@ def add_letter(candidate_list, letter, duplicate=False):
     return tmp_list
 
 def output_format(original_word, candidades):
-    ''' Return the output format string '''
-    return "^" + original_word + "/" + "/".join(candidades) + "$"
+    ''' Return the output format string ''' 
+    return  "^" + original_word + "/" + "/".join(candidades) + "$"
 
 def main():
     ''' The main function '''
-    original_word = "Orrriginnnal"
-    candidates = create_candidates(original_word)
-    print(output_format(original_word, candidates))   
-           
+    for line in sys.stdin.readlines():
+        for word in re.split('\s+', line):
+            original_word = word.strip()
+            if original_word != "":
+                data = re.match('(\w+)(\W+)', original_word)
+                if data:
+                    candidates = create_candidates(data.group(1))
+                    print("%s" % output_format(data.group(1), candidates))  
+                    print("%s" % output_format(data.group(2), [data.group(2)]))  
+                else:
+                    candidates = create_candidates(original_word)
+                    print("%s" % output_format(original_word, candidates))   
+
 if __name__ == '__main__':
     main()
 
