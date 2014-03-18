@@ -44,8 +44,18 @@ All the tweets were translated to Spanish (``resource/data_translated.txt`` file
 ###  5. Program 1
 
 The program (``src/candidates_generator.py`` module) produces candidates for strings
-with repeated letters (>=3) and reduce them to 1/2 letters. Example:
+with repeated letters (>=3) and reduce them to 1/2 letters.
 
+#### Usage:
+echo 'helllooo worrrddd!!!' | python candidates_generator.py 
+
+#### Output:
+
+- ^helllooo/helloo/hello/heloo/helo$
+- ^worrrddd/worrdd/worrd/wordd/word$
+- ^!!!/!!!$
+
+#### Other examples:
 - ^Nossssaaa/nossaa/nossa/nosaa/nosa$
 - ^!!/!!$
 - ^muito/muito$
@@ -57,9 +67,21 @@ with repeated letters (>=3) and reduce them to 1/2 letters. Example:
 
 With all the candidates the Program 2 (``src/candidates_selector.py`` module) selects one candidate using a morphological dictionary. Example:
 
+#### Usage:
+echo 'helllooo worrrddd!!!' | python candidates_generator.py | python candidates_selector.py 
+
+#### Output:
+- ^helllooo/hello$
+- ^worrrddd/word$
+- ^!!!/!!!$
+- **hello word !!!**
+
+
+#### Other examples:
 - ^Orrriginnnal/original$
-- ^!/!$
-- ^hellllllllooooooooo/hello$
-- ^wwwooorrrddd/word$
+- ^!!!/!!!$
+- ^houseeeeeeeeeeee/house$
+- ^apertium/apertium$
+
 
 
