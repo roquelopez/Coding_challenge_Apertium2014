@@ -25,7 +25,6 @@ All the tweets were translated to Spanish (``resource/data_translated.txt`` file
 - Spelling Mistakes: gurl (girl), smokin (smoking)
 - Two words together: youand (you and), chestand (chest and)
 - Abbreviation and Internet slang: u (you), tgthr (together)
-- Non capitalization: i want (I want), i need (I need)
 - Missing apostrophe: wouldnt (wouldn't), dont (don't), Im (I'm) 
 
 
@@ -38,8 +37,9 @@ All the tweets were translated to Spanish (``resource/data_translated.txt`` file
 	- Split the word in two strings and verify iteratively if the two strings are contained in a dictionary (correct words).
 - Abbreviation and Internet slang: u (you), tgthr (together)
 	- Using a dictionary like [this](http://en.wiktionary.org/wiki/Appendix:English_internet_slang) or other bigger and map them to their meanings.
-- Non capitalization: i want (I want), i need (I need)
+
 - Missing apostrophe: wouldnt (wouldn't), dont (don't), Im (I'm) 
+	- Creating a list of commons apostrophe occurrences for these cases. However: shell (she'll or shell) has ambiguity. The Trigram Language Model can help to resolve the ambiguity. I think that there are few similar cases, but a deeper analysis can help better.
 
 ###  5. Program 1
 
