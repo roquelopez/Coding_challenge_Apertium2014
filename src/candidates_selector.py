@@ -8,15 +8,22 @@ import sys
 import codecs
 
 dictionary_words = dict()
+languages = {'en':'english_words.txt', 
+             'es':'spanish_words.txt', 
+             'pt':'portuguese_words.txt'}
 
-def load_dictionary():
+def load_dictionary(language='en'):
     ''' Load the word set into a dictionary '''
-    data_file = codecs.open("../resource/english_words.txt", 'r', 'utf-8')
+    if language not in languages:
+        print("'%s' Not recognize, using English language." % language)
+        language = 'en'
+    
+    data_file = codecs.open("../resource/languages/%s" % languages[language], 'r', 'utf-8')
+    
     while True:
         line = data_file.readline()
         if not line: break
-        word = line.strip().split(' ')[2]
-        dictionary_words[word] = None
+        dictionary_words[line.strip()] = None
     data_file.close()
 
 
@@ -33,8 +40,13 @@ def output_format(original_word, correct_word):
 
 def main():
     ''' The main function '''
-    load_dictionary()
+    if len(sys.argv) != 2:
+        print ("Incorrect number of arguments.")
+        return
+    
+    load_dictionary(sys.argv[1])
     correct_words = list()
+
     for line in sys.stdin.readlines():
         tmp_list = line.replace('$\n', '').split('/')
         original_word = tmp_list[0][1:]
@@ -44,6 +56,6 @@ def main():
         print(output_format(original_word, correct_word))   
     
     print(" ".join(correct_words))    
-    
+        
 if __name__ == '__main__':
     main()
