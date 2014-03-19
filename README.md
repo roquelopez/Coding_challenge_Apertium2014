@@ -65,10 +65,10 @@ with repeated letters (>=3) and reduce them to 1/2 letters.
 
 ### 6. Program 2
 
-With all the candidates the Program 2 (``src/candidates_selector.py`` module) selects one candidate using a morphological dictionary. Example:
+With all the candidates the Program 2 (``src/candidates_selector.py`` module) selects one candidate using a morphological dictionary. In addition to the English (**'en'**), I aggregate support for Spanish (**'es'**) and Portuguese (**'pt'**).
 
 #### Usage:
-``echo 'helllooo worrrddd!!!' | python candidates_generator.py | python candidates_selector.py``
+``echo 'helllooo worrrddd!!!' | python candidates_generator.py | python candidates_selector.py 'en'``
 
 #### Output:
 - ^helllooo/hello$
